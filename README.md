@@ -95,6 +95,28 @@ La fin de la console indique la fermeture des ressources JPA. La ligne « Proces
 
 ## 7. Tests
 
+### Exécuter les tests localement
+
+**Prérequis :** JDK 21 et Maven 3.9+ installés. Aucune base de données externe n'est nécessaire : les tests utilisent H2 en mémoire, configurée dans `src/main/resources/META-INF/persistence.xml`.
+
+```bash
+git clone https://github.com/SaraHarib/gestion-salles-jpa-hibernate.git
+cd gestion-salles-jpa-hibernate
+mvn -B -ntp test
+```
+
+Pour effectuer également les vérifications Maven associées à la phase `verify` :
+
+```bash
+mvn -B -ntp verify
+```
+
+**Tests présents dans le code :** `src/test/java/com/example/jpa/ServiceGestionTest.java` contient quatre méthodes `@Test` vérifiant la persistance, les associations et les recherches JPQL. Le fichier `AppTest.java` est un test de squelette Maven qui n'apporte pas de validation métier. Les commandes ci-dessus permettent de connaître le résultat réel des tests sur votre environnement.
+
+### Vérification automatique GitHub Actions
+
+Un workflow `.github/workflows/java-ci.yml` est prévu pour exécuter `mvn -B -ntp verify` sur Java 21 à chaque pull request vers `main` et lors des pushes sur `main`. Consulter l'onglet **Actions** pour connaître le résultat de chaque exécution ; la présence du workflow seule ne garantit pas la réussite des tests.
+
 Les quatre tests JUnit de ServiceGestionTest vérifient :
 
 - La création et la lecture d'une salle, ainsi que sa présence dans la liste des salles.
